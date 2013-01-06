@@ -1,0 +1,27 @@
+
+functor or function object：仿函数，重写()运算符的struct或class
+
+由参数数量分：generator(无参), unary[u ne ri] function(一元), and binary function(二元)
+
+unary_function<Arg, Result>				空的类，一元functor可以从此继承
+binary_function<Arg1, Arg2, Result>		空的类，二元functor可以从此继承
+
+Predicate(谓词)		返回值为bool的unary function
+Binary Predicate	返回值为bool的binary function
+
+Adaptable Function(可适应性函数)	由嵌套typedef定义的functor，具有模板性质，不确定类型
+
+已定义的functor：（都为二元）
+算子：plus, minus, multiplies, divides, modulus, negate
+比较：equal_to, not_equal_to greater, less, greater_equal, less_equal
+逻辑：logical_and, logical_or, logical_not
+
+binder2nd(AdaptableBinaryFunction, C)，functor适配器，将二元functor转化为一元functor，即将二元functor的第二个参数用常数替代
+binder2nd(less<int>(), 100) 返回的是一元functor
+
+binary_compose(AdaptableBinaryFunction, AdaptableUnaryFunction1, AdaptableUnaryFunction2)
+设f(x, y) = AdaptableBinaryFunction, g1(x) = AdaptableUnaryFunction1, g2(x) = AdaptableUnaryFunction2
+返回结果h(x) = f(g1(x), g2(x))
+binary_compose(logical_and<bool>(), bind2nd(greater_equal<int>(), 1), bind2nd(less_equal<int>(), 10)) 返回大于1且小于10的一元functor
+
+

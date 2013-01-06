@@ -1,0 +1,2 @@
+__builtin_clz(int ) count leading zero 计算前导0
+计算32位int值前面的0，32 - __builtin_clz(int)即int值的二进制位数
